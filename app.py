@@ -60,9 +60,9 @@ def welcome():
 # Flask Routes
 #################################################
 
-@app.route("api/v1.0/precipitation")
+@app.route("/api/v1.0/precipitation")
 def precipitation():
-    prev_year = dt/date(2017, 8, 23) - dt.timedelta(days=365)
+    prev_year = dt.date(2017, 8, 23) - dt.timedelta(days=365)
     precipitation = session.query(Measurement.date, Measurement.prcp).\
         filter(Measurement.date >=prev_year).all()
     
@@ -71,7 +71,7 @@ def precipitation():
 
     return jsonify(precip)
 
-@app.route("api/v1.0/stations")
+@app.route("/api/v1.0/stations")
 def stations():
     results=session.query(Station.stations).all()
 
@@ -124,5 +124,5 @@ def stats(start=None, end=None):
     return jsonify(temps=temps)
     
 
-if __name__=="main__":
+if __name__=="__main__":
     app.run(debug==True)
